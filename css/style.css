@@ -31,12 +31,15 @@ button{
     color: blanchedalmond;
     background-color: rgb(149, 151, 14);
 }
+div{
+    margin-top: 30px;
+}
 ul{
     text-align: center;
-    margin-top: 30px;
+    margin-top: 50px;
     margin-left: 30px;
     color: rgb(126, 88, 38);
-    font-size: 30px;
+    font-size: 25px;
     font-family:Times, 'Times New Roman', serif;
     font-weight: bold;
 }
