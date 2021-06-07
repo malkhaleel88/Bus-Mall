@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 /* eslint-disable no-empty */
 'use strict';
 
@@ -12,6 +14,10 @@ let clicksCount = 0;
 let leftIndex;
 let midIndex;
 let rightIndex;
+let arrayOfIndex = [];
+let arrayOfProducts = [];
+let arrayOfVotes = [];
+let arrayOfViews = [];
 
 function ProductsImage(name, imagePath){
 
@@ -20,6 +26,7 @@ function ProductsImage(name, imagePath){
   this.imageShown = 0;
   this.votes= 0;
   ProductsImage.allProducts.push(this);
+  arrayOfProducts.push(this.name);
 }
 ProductsImage.allProducts = [];
 
@@ -54,16 +61,27 @@ function displayProducts(){
   midIndex = generateRandomIndex();
   rightIndex = generateRandomIndex();
 
-  while(leftIndex === midIndex || leftIndex === rightIndex || midIndex === rightIndex){
+
+  while(leftIndex === midIndex || leftIndex === rightIndex || midIndex === rightIndex
+    || arrayOfIndex.includes(leftIndex) || arrayOfIndex.includes(midIndex) || arrayOfIndex.includes(rightIndex)){
+    leftIndex = generateRandomIndex();
     midIndex = generateRandomIndex();
     rightIndex = generateRandomIndex();
   }
+  arrayOfIndex = [];
+  arrayOfIndex.push(leftIndex, midIndex, rightIndex);
+
+  console.log(arrayOfIndex);
+
   leftImage.setAttribute('src', ProductsImage.allProducts[leftIndex].imagePath);
   ProductsImage.allProducts[leftIndex].imageShown++;
+
   midImage.setAttribute('src', ProductsImage.allProducts[midIndex].imagePath);
   ProductsImage.allProducts[midIndex].imageShown++;
+
   rightImage.setAttribute('src', ProductsImage.allProducts[rightIndex].imagePath);
   ProductsImage.allProducts[rightIndex].imageShown++;
+
 }
 displayProducts();
 
@@ -80,6 +98,9 @@ function clickForVote(event){
       ProductsImage.allProducts[midIndex].votes++;
     }else if(event.target.id === 'RightProduct'){
       ProductsImage.allProducts[rightIndex].votes++;
+    }else{
+      alert('Please Click On Products Only');
+      return;
     }
     displayProducts();
 
@@ -92,10 +113,43 @@ function clickForVote(event){
 function viewResults(){
   let ul = document.getElementById('ListOfResults');
   for (let i = 0; i < ProductsImage.allProducts.length; i++){
+    arrayOfVotes.push(ProductsImage.allProducts[i].votes);
+    arrayOfViews.push(ProductsImage.allProducts[i].imageShown);
     let li = document.createElement('li');
     ul.appendChild(li);
     li.textContent = `${ProductsImage.allProducts[i].name} had ${ProductsImage.allProducts[i].votes} votes, and was seen ${ProductsImage.allProducts[i].imageShown} times.`;
-
   }
-
+  chartOfProducts();
+  press.removeEventListener('click', viewResults);
 }
+
+function chartOfProducts(){
+  let ctx = document.getElementById('myChart');
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: arrayOfProducts,
+      datasets: [{
+        label: '# of Votes',
+        data: arrayOfVotes,
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.7)'
+        ],
+
+        borderWidth: 1
+      },{
+        label: '# of Views',
+        data: arrayOfViews,
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.7)'
+        ],
+
+        borderWidth: 1
+      }]
+
+    },
+
+  });
+}
+
+
