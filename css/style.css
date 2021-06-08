@@ -3,14 +3,37 @@
     padding: 20px;
     background-color: rgb(208, 235, 193);
 }
-
-h1{
-    text-align: center;
-    color: rgb(114, 69, 10);
+h1{text-align: center;
+    color: rgb(59, 39, 12);
     font-size: 40px;
     font-family:fantasy;
     font-weight: bolder;
-    margin-top: 40px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+#menu{
+    overflow: hidden;
+    background-color: rgb(32, 58, 24);
+    width: 100%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+#menu ul li{
+    float: left;
+    display: inline-block;
+    margin-left: 235px;
+    background-color: rgb(32, 58, 24);
+    color: rgb(224, 219, 211);
+    font-size: 40px;
+}
+
+h2{
+    text-align: center;
+    color: rgb(59, 39, 12);
+    font-size: 40px;
+    font-family:fantasy;
+    font-weight: bolder;
+    margin-top: 10px;
 }
 img{
     margin-top: 30px;
