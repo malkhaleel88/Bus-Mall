@@ -30,6 +30,7 @@ function ProductsImage(name, imagePath){
 }
 ProductsImage.allProducts = [];
 
+
 new ProductsImage('bag', 'img/bag.jpg');
 new ProductsImage('banana', 'img/banana.jpg');
 new ProductsImage('bathroom', 'img/bathroom.jpg');
@@ -108,6 +109,22 @@ function clickForVote(event){
     press.addEventListener('click', viewResults);
     listOfImages.removeEventListener('click', clickForVote);
   }
+  savingResults();
+}
+
+
+function savingResults(){
+  let arrayOfResults = JSON.stringify(ProductsImage.allProducts);
+
+  localStorage.setItem('Results', arrayOfResults);
+}
+
+function showingResults(){
+  let values = localStorage.getItem('Results');
+
+  if(values){
+    ProductsImage.allProducts = JSON.parse(values);
+  }
 }
 
 function viewResults(){
@@ -151,5 +168,4 @@ function chartOfProducts(){
 
   });
 }
-
-
+showingResults();
